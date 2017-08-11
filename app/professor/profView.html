@@ -1,0 +1,53 @@
+<h1> {{vm.titulo}}</h1>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="col-sm-3">
+            <button type="button" ng-click="vm.trezentos();"  class="btn btn-primary">Add 300 professores</button>
+        </div>
+    </div>
+    <div class="col-sm-3">
+
+    </div>
+    <div class="col-sm-3">
+        <select  class="form-control" ng-model="vm.pessSerie" ng-change="vm.tableFilter()">
+            <option value="" disabled selected>Filtrar Serie</option>
+            <option ng-repeat="serie in vm.degrees" value="{{serie.id}}">{{serie.name}}</option>
+        </select>
+    </div>
+    <div class="col-sm-3">
+        <select  class="form-control" ng-model="vm.pessClasse" ng-change="vm.tableFilter()" >
+            <option value="" disabled selected>Filtrar Classe</option>
+            <option ng-repeat="classe in vm.classes" value="{{classe.id}}">{{classe.name}}</option>
+        </select>
+    </div>
+
+
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped">
+            <tr>
+                <th>Nome</th>
+                <th>Materia</th>
+                <th>Séries / Classes</th>
+
+                <th width="10px"></th>
+            </tr>
+            <tr ng-repeat="model in vm.professor track by $index">
+                <td>{{vm.teachesName(model.teacherId)}}</td>
+                <td>{{vm.matterName(model.matterId)}}</td>
+                <td><ul class="list-unstyled" ng-repeat="serie in model.degrees"> <li>{{vm.degreesName(serie.degreeId)}} <ul  ng-repeat="class in serie.classes">Classe <small ng-if="class.classId">{{vm.className(class.classId)}}</small> <small ng-if="class.classPosition">{{vm.className(class.classPosition +1)}}</small></ul></li></ul></td>
+
+                <td><button ng-click="vm.openModal(model.degrees);" type="button" class="btn btn-primary btn-sm" title="Vizualizar"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Alunos</button> </td>
+
+            </tr>
+            <tr ng-if="!vm.professor.length">
+                <td colspan="4">Nenhum registro encontrado.</td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
